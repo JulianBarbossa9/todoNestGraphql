@@ -1,0 +1,50 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Todo {
+  id: Int!
+  description: String!
+  done: Boolean!
+}
+
+type Query {
+  """Hello word from resolver with nest"""
+  panas: String!
+
+  """Return a random number of type float"""
+  randomNumbers: Float!
+
+  """Return random number between certain number (default 9)"""
+  numberToZeroTo(to: Int): Int!
+
+  """Return a small array of letters"""
+  todos: [Todo!]!
+
+  """Return the id of the request Id"""
+  todo(id: Int!): Todo!
+}
+
+type Mutation {
+  """create a new todo"""
+  createTodo(createTodoInput: CreateTodoInput!): Todo!
+
+  """Update a todo"""
+  updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
+}
+
+input CreateTodoInput {
+  """What needs to be done"""
+  description: String!
+}
+
+input UpdateTodoInput {
+  """Id of the todo to update"""
+  id: Int!
+
+  """What needs to be done"""
+  description: String
+
+  """Show if the todo is completed or not"""
+  done: Boolean
+}

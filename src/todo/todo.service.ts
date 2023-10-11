@@ -13,7 +13,13 @@ export class TodoService {
     {id: 3, description: 'This the 3 description', done:true },
   ]
 
-  findAll(): Todo[] {
+  findAll(statusArgs: boolean ): Todo[] {
+    
+    if (statusArgs) {
+      this.todos = this.todos.filter(todo => todo.done === true)
+      return this.todos
+    }
+    
     return this.todos
   }
 
@@ -56,6 +62,15 @@ export class TodoService {
     })
 
     return todoToUpdate
+  }
+
+  removeTodo(id: number): Boolean{
+    
+    const todo = this.findOne(id)
+    this.todos = this.todos.filter( todo => todo.id !== id )
+
+    return true
+
   }
 
 }

@@ -19,10 +19,15 @@ type Query {
   numberToZeroTo(to: Int): Int!
 
   """Return a small array of letters"""
-  todos: [Todo!]!
+  todos(sheckDone: StatusArgs!): [Todo!]!
 
   """Return the id of the request Id"""
   todo(id: Int!): Todo!
+}
+
+input StatusArgs {
+  """"""
+  sheckDone: Boolean
 }
 
 type Mutation {
@@ -31,6 +36,7 @@ type Mutation {
 
   """Update a todo"""
   updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
+  removeTodo(id: Int!): Boolean!
 }
 
 input CreateTodoInput {

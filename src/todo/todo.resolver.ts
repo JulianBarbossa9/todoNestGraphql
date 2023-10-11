@@ -4,8 +4,9 @@ import { Todo } from './entity/todo.entity';
 import { TodoService } from './todo.service';
 import { CreateTodoInput } from './dto/inputs/create-todo.input';
 import { UpdateTodoInput } from './dto/inputs/update-todo.input';
+import { StatusArgs } from './dto/args/status.args';
 
-@Resolver()
+@Resolver(() => Todo)
 export class TodoResolver {
   
   //This way the services are imported with nest
@@ -21,8 +22,10 @@ export class TodoResolver {
     description: 'Return a small array of letters'
   })
   //This is typical of typescript
-  findAll(): Todo[] {
-    return this.todoService.findAll()
+  findAll(
+    @Args('sheckDone') sheckDone: StatusArgs
+  ): Todo[] {
+    return this.todoService.findAll(sheckDone)
   }
 
   @Query(() => Todo, {
@@ -56,6 +59,15 @@ export class TodoResolver {
     return this.todoService.updateTodo(updateTodoInput)
   }
 
+  @Mutation(() => Boolean)
+  removeTodo(
+    @Args('id', { type: ()=> Int}) id:number
+  ){
+    return this.todoService.removeTodo(id)
+  }
+
+
+  
 }
 /**
  * Nota: The name of the param in the appollo client is the combination between the name of the query and the name of the param this is equal to todo + id = todoId 

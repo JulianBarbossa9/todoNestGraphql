@@ -1,7 +1,7 @@
-import { Field, InputType } from "@nestjs/graphql";
+import { ArgsType, Field,  } from "@nestjs/graphql";
 import { IsBoolean, IsOptional } from "class-validator";
 
-@InputType()
+@ArgsType()
 export class StatusArgs {
   //Validations
 
@@ -11,7 +11,7 @@ export class StatusArgs {
   })
   @IsOptional()
   @IsBoolean()
-  sheckDone: boolean
+  status?: boolean
 
 
 }

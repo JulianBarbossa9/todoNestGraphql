@@ -8,6 +8,14 @@ type Todo {
   done: Boolean!
 }
 
+"""Todo quick aggregations """
+type AggregationsType {
+  total: Int!
+  pending: Int!
+  completed: Int!
+  totalTodos: Int! @deprecated(reason: "Most use completed \"total\" instead")
+}
+
 type Query {
   """Hello word from resolver with nest"""
   panas: String!
@@ -19,15 +27,14 @@ type Query {
   numberToZeroTo(to: Int): Int!
 
   """Return a small array of letters"""
-  todos(sheckDone: StatusArgs!): [Todo!]!
+  todos(status: Boolean): [Todo!]!
 
   """Return the id of the request Id"""
   todo(id: Int!): Todo!
-}
-
-input StatusArgs {
-  """"""
-  sheckDone: Boolean
+  totalTodos: Int!
+  totalTodosCompleted: Int!
+  totalTodosPending: Int!
+  totalAggregationsTodos: AggregationsType!
 }
 
 type Mutation {

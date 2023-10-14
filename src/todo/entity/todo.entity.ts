@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 
-//With this we say to graphql thi is a custom object
+//With this we say to graphql this is a custom object
 @ObjectType()
 export class Todo {
 

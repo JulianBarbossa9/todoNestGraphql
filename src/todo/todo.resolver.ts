@@ -5,6 +5,7 @@ import { TodoService } from './todo.service';
 import { CreateTodoInput } from './dto/inputs/create-todo.input';
 import { UpdateTodoInput } from './dto/inputs/update-todo.input';
 import { StatusArgs } from './dto/args/status.args';
+import { AggregationsType } from './types/aggregations.type';
 
 @Resolver(() => Todo)
 export class TodoResolver {
@@ -23,9 +24,9 @@ export class TodoResolver {
   })
   //This is typical of typescript
   findAll(
-    @Args('sheckDone') sheckDone: StatusArgs
+    @Args() statusArgs: StatusArgs
   ): Todo[] {
-    return this.todoService.findAll(sheckDone)
+    return this.todoService.findAll(statusArgs)
   }
 
   @Query(() => Todo, {
@@ -66,6 +67,32 @@ export class TodoResolver {
     return this.todoService.removeTodo(id)
   }
 
+  @Query(() => Int, { name: 'totalTodos'})
+  totalTodos(): number {
+    return this.todoService.totalTodos
+  }
+
+  @Query(() => Int, { name: 'totalTodosCompleted'})
+  totalTodosCompleted(): number {
+    return this.todoService.totalCompleted
+  }
+
+  @Query(() => Int, { name: 'totalTodosPending'})
+  totalTodosPending(): number {
+    return this.todoService.totalPending
+  }
+
+  //Another way to create totalTodos, totalTodosCompleted, totalTodosPending
+  @Query(() => AggregationsType)
+  //name of the method
+  totalAggregationsTodos(): AggregationsType{
+    return {
+      completed: this.todoService.totalCompleted,
+      pending: this.todoService.totalPending,
+      total:this.todoService.totalTodos,
+      totalTodos: this.todoService.totalTodos,
+    }
+  }
 
   
 }
